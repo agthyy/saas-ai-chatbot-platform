@@ -62,7 +62,6 @@ router.post('/register', async (req, res) => {
       [userId, email, passwordHash, 'owner']
     );
 
-    // Create Business
     await db.run(
       'INSERT INTO businesses (id, owner_id, name, template, welcome_message) VALUES (?, ?, ?, ?, ?)',
       [
@@ -71,10 +70,10 @@ router.post('/register', async (req, res) => {
         businessName,
         template,
         template === 'cafe' 
-          ? `Приветствуем в ${businessName}! ☕️ Чем я могу помочь вам сегодня?`
+          ? `Приветствуем в ${businessName}! Чем я могу помочь вам сегодня?`
           : template === 'salon'
-          ? `Здравствуйте! Добро пожаловать в ${businessName}! ✨ Какую процедуру вы хотели бы выбрать?`
-          : `Добрый день! Вы обратились в клинику ${businessName}. 🏥 Какая медицинская услуга вас интересует?`
+          ? `Здравствуйте! Добро пожаловать в ${businessName}! Какую процедуру вы хотели бы выбрать?`
+          : `Добрый день! Вы обратились в клинику ${businessName}. Какая медицинская услуга вас интересует?`
       ]
     );
 

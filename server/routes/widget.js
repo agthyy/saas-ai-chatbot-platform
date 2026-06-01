@@ -142,7 +142,7 @@ ${slotsStr}
 
 ПРАВИЛА ОТВЕТА:
 1. Отвечайте коротко, понятно и вежливо на русском языке.
-2. Дайте ответ строго на основе Базы знаний (FAQ). Если в базе знаний нет точного ответа, вежливо ответьте, что вы не знаете или перенаправите вопрос менеджеру, не придумывайте лишней информации.
+2. Пользователь может формулировать вопросы неточно или использовать другие синонимы. Анализируйте ключевые слова, суть и намерение пользователя. Если его вопрос по смыслу совпадает с какой-либо темой из Базы знаний (FAQ), дайте четкий ответ на основе этого пункта. Не будьте излишне формальны в требовании точных совпадений. Если же вопрос совершенно не касается информации из FAQ, вежливо ответьте, что не знаете или предложите перенаправить вопрос менеджеру.
 3. Если клиент выражает желание записаться или спрашивает про свободное время, перечислите несколько доступных слотов из списка выше и скажите, что он может оформить запись через форму записи прямо здесь, кликнув по кнопке календаря в виджете.
 4. Не используйте сложные Markdown-форматы (кроме списков или жирного текста для акцентов).
 5. Ведите диалог как живой менеджер.`;
@@ -206,10 +206,11 @@ ${slotsStr}
 
 // Helper for local rule-based match if API is unavailable or disabled
 function getLocalFallbackReply(userMessage, faqs, slots) {
-  const cleanMsg = userMessage.toLowerCase();
+  const cleanMsg = userMessage.toLowerCase().trim();
   
   // Check for booking keywords
-  if (cleanMsg.includes('запис') || cleanMsg.includes('заброниров') || cleanMsg.includes('время') || cleanMsg.includes('слот') || cleanMsg.includes('свободн')) {
+  const bookingKeywords = ['запис', 'заброниров', 'время', 'слот', 'свободн', 'прием', 'визит', 'сеанс'];
+  if (bookingKeywords.some(kw => cleanMsg.includes(kw))) {
     if (slots.length === 0) {
       return 'К сожалению, на ближайшее время нет свободных слотов для записи.';
     }
@@ -217,7 +218,7 @@ function getLocalFallbackReply(userMessage, faqs, slots) {
     return `Конечно! Вы можете записаться, выбрав свободную дату и время через кнопку календаря в чате. Вот ближайшие свободные слоты:\n${slotsText}`;
   }
 
-  // Check FAQs
+  // 1. Direct contains check
   for (const faq of faqs) {
     const q = faq.question.toLowerCase();
     if (cleanMsg.includes(q) || q.includes(cleanMsg)) {
@@ -225,13 +226,36 @@ function getLocalFallbackReply(userMessage, faqs, slots) {
     }
   }
 
-  // Keyword-based search
+  // 2. Keyword-based overlap search using stem detection
+  let bestMatch = null;
+  let maxMatches = 0;
+  
+  // Common stop words to exclude from keyword extraction
+  const stopWords = new Set(['какие', 'когда', 'сколько', 'почему', 'зачем', 'чтобы', 'какой', 'какие', 'какая', 'есть', 'вас', 'наш', 'как', 'для', 'или']);
+
   for (const faq of faqs) {
-    const keywords = faq.question.toLowerCase().split(/[ ,.?!\n]+/);
-    const matches = keywords.filter(word => word.length > 3 && cleanMsg.includes(word));
-    if (matches.length >= 2) {
-      return faq.answer;
+    const qWords = faq.question.toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, '')
+      .split(/\s+/)
+      .filter(w => w.length > 3 && !stopWords.has(w));
+      
+    let matchesCount = 0;
+    for (const word of qWords) {
+      // Basic stemming - match the beginning root of the word (at least 4 chars)
+      const stem = word.substring(0, Math.max(4, word.length - 2));
+      if (cleanMsg.includes(stem)) {
+        matchesCount++;
+      }
     }
+    
+    if (matchesCount > maxMatches) {
+      maxMatches = matchesCount;
+      bestMatch = faq;
+    }
+  }
+
+  if (bestMatch && maxMatches >= 1) {
+    return bestMatch.answer;
   }
 
   return 'Здравствуйте! Спасибо за ваш вопрос. Я могу рассказать вам о наших услугах, времени работы, адресе или помочь записаться на свободное время. Уточните, пожалуйста, ваш вопрос.';
