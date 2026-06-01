@@ -3,7 +3,7 @@ import {
   Bot, Sparkles, MessageSquare, Calendar, Shield, LogOut, CheckCircle, 
   Trash2, Plus, Edit2, Code, ChevronRight, Settings, Users, ArrowRight,
   Eye, RefreshCw, Star, ArrowUpRight, Check, X, ShieldAlert, BarChart2,
-  Palette, User, Menu
+  Palette, User, Menu, Coffee, Scissors, Stethoscope
 } from 'lucide-react';
 
 export default function App() {
@@ -545,13 +545,13 @@ export default function App() {
       
       {/* Toast Alert Notifications */}
       {errorMsg && (
-        <div className="fixed top-4 right-4 z-[99999] flex items-center bg-red-950 border border-red-500 text-red-100 px-4 py-3 rounded-xl shadow-2xl animate-fade-in max-w-sm">
+        <div className="fixed top-4 right-4 z-[99999] flex items-center bg-red-950 border border-red-500 text-red-100 px-4 py-3 rounded-xl shadow-2xl toast-enter max-w-sm">
           <ShieldAlert className="w-5 h-5 mr-3 text-red-400 flex-shrink-0" />
           <span className="text-xs font-medium">{errorMsg}</span>
         </div>
       )}
       {successMsg && (
-        <div className="fixed top-4 right-4 z-[99999] flex items-center bg-emerald-950 border border-emerald-500 text-emerald-100 px-4 py-3 rounded-xl shadow-2xl animate-fade-in max-w-sm">
+        <div className="fixed top-4 right-4 z-[99999] flex items-center bg-emerald-950 border border-emerald-500 text-emerald-100 px-4 py-3 rounded-xl shadow-2xl toast-enter max-w-sm">
           <CheckCircle className="w-5 h-5 mr-3 text-emerald-400 flex-shrink-0" />
           <span className="text-xs font-medium">{successMsg}</span>
         </div>
@@ -576,33 +576,33 @@ export default function App() {
           <nav className="hidden md:flex items-center space-x-6">
             {!user ? (
               <>
-                <button onClick={() => setCurrentView('landing')} className={`text-sm ${currentView === 'landing' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Главная</button>
-                <button onClick={() => setCurrentView('login')} className="text-sm text-slate-400 hover:text-slate-200 transition-colors">Вход</button>
-                <button onClick={() => setCurrentView('register')} className="px-4 py-2 rounded-xl bg-indigo-600 text-sm font-semibold hover:bg-indigo-500 transition-all text-white shadow-md shadow-indigo-600/10">Регистрация</button>
+                <button onClick={() => setCurrentView('landing')} className={`text-sm transition-colors ${currentView === 'landing' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Главная</button>
+                <button onClick={() => setCurrentView('login')} className={`text-sm transition-colors ${currentView === 'login' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Вход</button>
+                <button onClick={() => setCurrentView('register')} className="px-4 py-2 rounded-xl bg-indigo-600 text-sm font-semibold hover:bg-indigo-500 transition-all text-white shadow-md shadow-indigo-600/10 btn-press">Регистрация</button>
               </>
             ) : (
               <>
                 {user.role === 'admin' ? (
-                  <span className="text-xs font-semibold px-2.5 py-1 bg-red-950 border border-red-800 text-red-400 rounded-full">Панель Администратора</span>
+                  <span className="text-xs font-semibold px-2.5 py-1 bg-red-950 border border-red-800 text-red-400 rounded-full animate-pulse-glow">Панель Администратора</span>
                 ) : (
                   <>
-                    <button onClick={() => setCurrentView('dashboard')} className={`text-sm ${currentView === 'dashboard' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Дашборд</button>
-                    <button onClick={() => setCurrentView('settings')} className={`text-sm ${currentView === 'settings' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Настройки и FAQ</button>
-                    <button onClick={() => setCurrentView('slots')} className={`text-sm ${currentView === 'slots' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Расписание</button>
-                    <button onClick={() => { setCurrentView('chats'); setActiveChatId(null); }} className={`text-sm ${currentView === 'chats' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Диалоги</button>
-                    <button onClick={() => setCurrentView('bookings')} className={`text-sm ${currentView === 'bookings' ? 'text-indigo-400' : 'text-slate-400 hover:text-slate-200'} transition-colors`}>Записи</button>
+                    <button onClick={() => setCurrentView('dashboard')} className={`text-sm transition-colors ${currentView === 'dashboard' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Дашборд</button>
+                    <button onClick={() => setCurrentView('settings')} className={`text-sm transition-colors ${currentView === 'settings' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Настройки и FAQ</button>
+                    <button onClick={() => setCurrentView('slots')} className={`text-sm transition-colors ${currentView === 'slots' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Расписание</button>
+                    <button onClick={() => { setCurrentView('chats'); setActiveChatId(null); }} className={`text-sm transition-colors ${currentView === 'chats' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Диалоги</button>
+                    <button onClick={() => setCurrentView('bookings')} className={`text-sm transition-colors ${currentView === 'bookings' ? 'text-indigo-400 nav-active' : 'text-slate-400 hover:text-slate-200 underline-reveal'}`}>Записи</button>
                   </>
                 )}
                 
                 <div className="flex items-center space-x-3 pl-4 border-l border-slate-900">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
+                  <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 icon-hover">
                     <User className="w-4 h-4 text-slate-300" />
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-semibold text-slate-300 truncate max-w-[120px]">{user.email}</p>
                     <p className="text-[10px] text-slate-500 uppercase">{user.role}</p>
                   </div>
-                  <button onClick={handleLogout} className="p-2 rounded-xl text-slate-400 hover:text-red-400 hover:bg-slate-900 transition-all" title="Выйти">
+                  <button onClick={handleLogout} className="p-2 rounded-xl text-slate-400 hover:text-red-400 hover:bg-slate-900 transition-all btn-press" title="Выйти">
                     <LogOut className="w-4.5 h-4.5" />
                   </button>
                 </div>
@@ -658,27 +658,36 @@ export default function App() {
           <div className="space-y-24 py-6">
             
             {/* Hero Section */}
-            <div className="text-center space-y-8 max-w-3xl mx-auto py-12 relative">
+            <div className="text-center space-y-8 max-w-3xl mx-auto py-12 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-glow -z-10 pointer-events-none"></div>
               
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-semibold animate-pulse">
-                <Sparkles className="w-3.5 h-3.5" />
+              {/* Custom Hero Particles */}
+              <div className="hero-particles">
+                <div className="hero-particle"></div>
+                <div className="hero-particle"></div>
+                <div className="hero-particle"></div>
+                <div className="hero-particle"></div>
+                <div className="hero-particle"></div>
+              </div>
+
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-indigo-400 text-xs font-semibold animate-pulse-glow">
+                <Sparkles className="w-3.5 h-3.5 icon-hover" />
                 <span>Запуск платформы: ИИ-чат-боты без кода</span>
               </div>
               
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-none font-outfit">
-                Умные ИИ-ассистенты для вашего <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">бизнеса</span>
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-none font-outfit animate-slide-up">
+                Умные ИИ-ассистенты для вашего <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent animate-gradient-text">бизнеса</span>
               </h1>
               
-              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto animate-slide-up delay-200">
                 Создайте и настройте умного чат-бота для вашего кафе, салона красоты или клиники за 5 минут. Позвольте ИИ отвечать на частые вопросы клиентов и автоматически записывать их на свободные слоты.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button onClick={() => setCurrentView('register')} className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-indigo-600 hover:bg-indigo-500 transition-all text-white shadow-xl shadow-indigo-600/20 flex items-center justify-center">
-                  Попробовать бесплатно <ArrowRight className="w-4 h-4 ml-2" />
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up delay-300">
+                <button onClick={() => setCurrentView('register')} className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm text-white shadow-xl shadow-indigo-600/20 flex items-center justify-center btn-press shimmer-btn">
+                  Попробовать бесплатно <ArrowRight className="w-4 h-4 ml-2 animate-bounce" />
                 </button>
-                <button onClick={() => setCurrentView('login')} className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-850 transition-all text-slate-200 border border-slate-850 flex items-center justify-center">
+                <button onClick={() => setCurrentView('login')} className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-850 transition-all text-slate-200 border border-slate-850 flex items-center justify-center btn-press">
                   Вход для клиентов
                 </button>
               </div>
@@ -693,9 +702,11 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Cafe */}
-                <div className="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl">
+                <div className="glass-card card-lift glow-border rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl animate-slide-up">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-orange-950 border border-orange-850 flex items-center justify-center text-orange-400 text-xl font-bold">☕️</div>
+                    <div className="w-12 h-12 rounded-xl bg-orange-950/60 border border-orange-850 flex items-center justify-center text-orange-400 icon-hover animate-float">
+                      <Coffee className="w-5.5 h-5.5" />
+                    </div>
                     <h3 className="text-lg font-bold font-outfit text-white">Кафе и Рестораны</h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
                       Бот расскажет меню, цены, ингредиенты блюд, расписание работы, а также поможет забронировать столик на вечер или заказать банкет.
@@ -708,9 +719,11 @@ export default function App() {
                 </div>
 
                 {/* Salon */}
-                <div className="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl">
+                <div className="glass-card card-lift glow-border rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl animate-slide-up delay-100">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-pink-950 border border-pink-850 flex items-center justify-center text-pink-400 text-xl font-bold">✨</div>
+                    <div className="w-12 h-12 rounded-xl bg-pink-950/60 border border-pink-850 flex items-center justify-center text-pink-400 icon-hover animate-float" style={{ animationDelay: '0.2s' }}>
+                      <Scissors className="w-5.5 h-5.5" />
+                    </div>
                     <h3 className="text-lg font-bold font-outfit text-white">Салоны Красоты</h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
                       ИИ ответит о стоимости услуг (маникюр, окрашивание, стрижки), расскажет об опыте мастеров и предоставит выбор времени для записи на процедуры.
@@ -723,9 +736,11 @@ export default function App() {
                 </div>
 
                 {/* Clinic */}
-                <div className="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl">
+                <div className="glass-card card-lift glow-border rounded-2xl p-6 flex flex-col justify-between space-y-6 border border-slate-900 shadow-xl animate-slide-up delay-200">
                   <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-teal-950 border border-teal-850 flex items-center justify-center text-teal-400 text-xl font-bold">🏥</div>
+                    <div className="w-12 h-12 rounded-xl bg-teal-950/60 border border-teal-850 flex items-center justify-center text-teal-400 icon-hover animate-float" style={{ animationDelay: '0.4s' }}>
+                      <Stethoscope className="w-5.5 h-5.5" />
+                    </div>
                     <h3 className="text-lg font-bold font-outfit text-white">Медицинские Клиники</h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
                       Информирование о приеме узких специалистов (кардиолог, терапевт), ценах на анализы, адресе и расписании клиники. Интеграция со свободными слотами.
@@ -748,7 +763,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 {/* Trial */}
-                <div className="glass-card rounded-2xl p-8 border border-slate-900 relative flex flex-col justify-between h-96">
+                <div className="glass-card card-lift glow-border rounded-2xl p-8 border border-slate-900 relative flex flex-col justify-between h-96 animate-slide-up">
                   <div className="space-y-4">
                     <h3 className="text-base font-bold text-slate-300">Пробный (Trial)</h3>
                     <p className="text-3xl font-extrabold text-white">Бесплатно</p>
@@ -758,17 +773,17 @@ export default function App() {
                       <li className="flex items-center"><Check className="w-4.5 h-4.5 text-indigo-400 mr-2" /> Базовые шаблоны FAQ</li>
                     </ul>
                   </div>
-                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl border border-slate-800 text-xs font-bold hover:bg-slate-900 transition-all text-slate-300">
+                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl border border-slate-800 text-xs font-bold hover:bg-slate-900 transition-all text-slate-300 btn-press">
                     Попробовать
                   </button>
                 </div>
 
                 {/* Pro */}
-                <div className="glass-card rounded-2xl p-8 border border-indigo-500 bg-slate-900/60 relative flex flex-col justify-between h-96 shadow-indigo-500/5">
+                <div className="glass-card card-lift glow-border pricing-popular rounded-2xl p-8 bg-slate-900/60 relative flex flex-col justify-between h-96 shadow-indigo-500/5 animate-slide-up delay-100">
                   <div className="absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full bg-indigo-600 text-[10px] font-bold text-white uppercase tracking-wider">Популярный</div>
                   <div className="space-y-4">
-                    <h3 className="text-base font-bold text-indigo-300">Про ($100/мес)</h3>
-                    <p className="text-3xl font-extrabold text-white">$100<span className="text-xs font-normal text-slate-500">/мес</span></p>
+                    <h3 className="text-base font-bold text-indigo-300">Про (4 990 ₽/мес)</h3>
+                    <p className="text-3xl font-extrabold text-white">4 990 ₽<span className="text-xs font-normal text-slate-500">/мес</span></p>
                     <p className="text-xs text-slate-400">Идеально для растущего бизнеса.</p>
                     <ul className="text-xs text-slate-300 space-y-2 pt-4">
                       <li className="flex items-center"><Check className="w-4.5 h-4.5 text-indigo-400 mr-2" /> Неограниченные диалоги</li>
@@ -776,16 +791,16 @@ export default function App() {
                       <li className="flex items-center"><Check className="w-4.5 h-4.5 text-indigo-400 mr-2" /> До 500 слотов записи</li>
                     </ul>
                   </div>
-                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl bg-indigo-600 text-xs font-bold hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20">
+                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl bg-indigo-600 text-xs font-bold hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20 btn-press animate-pulse-glow">
                     Начать сейчас
                   </button>
                 </div>
 
                 {/* Enterprise */}
-                <div className="glass-card rounded-2xl p-8 border border-slate-900 relative flex flex-col justify-between h-96">
+                <div className="glass-card card-lift glow-border rounded-2xl p-8 border border-slate-900 relative flex flex-col justify-between h-96 animate-slide-up delay-200">
                   <div className="space-y-4">
-                    <h3 className="text-base font-bold text-slate-300">Бизнес ($500/мес)</h3>
-                    <p className="text-3xl font-extrabold text-white">$500<span className="text-xs font-normal text-slate-500">/мес</span></p>
+                    <h3 className="text-base font-bold text-slate-300">Бизнес (24 990 ₽/мес)</h3>
+                    <p className="text-3xl font-extrabold text-white">24 990 ₽<span className="text-xs font-normal text-slate-500">/мес</span></p>
                     <p className="text-xs text-slate-500">Для сетей и крупных заведений.</p>
                     <ul className="text-xs text-slate-400 space-y-2 pt-4">
                       <li className="flex items-center"><Check className="w-4.5 h-4.5 text-indigo-400 mr-2" /> Доступ ко всем возможностям</li>
@@ -793,7 +808,7 @@ export default function App() {
                       <li className="flex items-center"><Check className="w-4.5 h-4.5 text-indigo-400 mr-2" /> Приоритетные LLM модели</li>
                     </ul>
                   </div>
-                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl border border-slate-800 text-xs font-bold hover:bg-slate-900 transition-all text-slate-300">
+                  <button onClick={() => setCurrentView('register')} className="w-full py-2.5 rounded-xl border border-slate-800 text-xs font-bold hover:bg-slate-900 transition-all text-slate-300 btn-press">
                     Выбрать Бизнес
                   </button>
                 </div>
@@ -903,9 +918,9 @@ export default function App() {
                     className="w-full px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-100 text-sm"
                     required
                   >
-                    <option value="cafe">☕️ Кафе / Ресторан (Меню, бронь столиков)</option>
-                    <option value="salon">✨ Салон красоты (Стрижка, маникюр, слоты времени)</option>
-                    <option value="clinic">🏥 Клиника / Медцентр (Консультация врача, запись)</option>
+                    <option value="cafe">Кафе / Ресторан (Меню, бронь столиков)</option>
+                    <option value="salon">Салон красоты (Стрижка, маникюр, слоты времени)</option>
+                    <option value="clinic">Клиника / Медцентр (Консультация врача, запись)</option>
                   </select>
                 </div>
 
@@ -935,8 +950,8 @@ export default function App() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 rounded-full blur-2xl pointer-events-none"></div>
               
               <div className="flex items-center space-x-4">
-                <div className="w-14 h-14 rounded-2xl bg-indigo-950/60 border border-indigo-850 flex items-center justify-center text-3xl font-bold text-indigo-400">
-                  {business.logo_url ? <img src={business.logo_url} className="w-full h-full object-cover rounded-2xl" alt="logo" /> : (business.template === 'cafe' ? '☕️' : business.template === 'salon' ? '✨' : '🏥')}
+                <div className="w-14 h-14 rounded-2xl bg-indigo-950/60 border border-indigo-850 flex items-center justify-center text-indigo-400">
+                  {business.logo_url ? <img src={business.logo_url} className="w-full h-full object-cover rounded-2xl animate-fade-in" alt="logo" /> : (business.template === 'cafe' ? <Coffee className="w-6 h-6 animate-bounce" /> : business.template === 'salon' ? <Scissors className="w-6 h-6 animate-bounce" /> : <Stethoscope className="w-6 h-6 animate-bounce" />)}
                 </div>
                 <div>
                   <h2 className="text-xl font-extrabold text-white font-outfit">{business.name}</h2>
@@ -956,47 +971,47 @@ export default function App() {
             </div>
 
             {/* Quick Analytics Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div onClick={() => setCurrentView('settings')} className="glass-card rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 stagger-children">
+              <div onClick={() => setCurrentView('settings')} className="glass-card card-lift glow-border stat-glow rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
                 <div className="flex items-center justify-between text-indigo-400">
-                  <Sparkles className="w-5 h-5" />
+                  <Sparkles className="w-5 h-5 icon-hover" />
                   <span className="text-[10px] text-slate-500 font-bold uppercase">База знаний</span>
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-black text-white">{stats.faqs}</p>
+                  <p className="text-2xl font-black text-white stat-number">{stats.faqs}</p>
                   <p className="text-xs text-slate-400">Вопросов в FAQ</p>
                 </div>
               </div>
 
-              <div onClick={() => setCurrentView('slots')} className="glass-card rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
+              <div onClick={() => setCurrentView('slots')} className="glass-card card-lift glow-border stat-glow rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
                 <div className="flex items-center justify-between text-indigo-400">
-                  <Calendar className="w-5 h-5" />
+                  <Calendar className="w-5 h-5 icon-hover" />
                   <span className="text-[10px] text-slate-500 font-bold uppercase">Слоты записи</span>
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-black text-white">{stats.slots}</p>
+                  <p className="text-2xl font-black text-white stat-number">{stats.slots}</p>
                   <p className="text-xs text-slate-400">Свободных часов</p>
                 </div>
               </div>
 
-              <div onClick={() => setCurrentView('bookings')} className="glass-card rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
+              <div onClick={() => setCurrentView('bookings')} className="glass-card card-lift glow-border stat-glow rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
                 <div className="flex items-center justify-between text-indigo-400">
-                  <CheckCircle className="w-5 h-5" />
+                  <CheckCircle className="w-5 h-5 icon-hover" />
                   <span className="text-[10px] text-slate-500 font-bold uppercase">Записи</span>
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-black text-white">{stats.bookings}</p>
+                  <p className="text-2xl font-black text-white stat-number">{stats.bookings}</p>
                   <p className="text-xs text-slate-400">Всего записей</p>
                 </div>
               </div>
 
-              <div onClick={() => setCurrentView('chats')} className="glass-card rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
+              <div onClick={() => setCurrentView('chats')} className="glass-card card-lift glow-border stat-glow rounded-xl p-5 border border-slate-900 flex flex-col justify-between cursor-pointer hover:bg-slate-900/40 transition-colors shadow-lg">
                 <div className="flex items-center justify-between text-indigo-400">
-                  <MessageSquare className="w-5 h-5" />
+                  <MessageSquare className="w-5 h-5 icon-hover" />
                   <span className="text-[10px] text-slate-500 font-bold uppercase">Диалоги</span>
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-black text-white">{stats.chats}</p>
+                  <p className="text-2xl font-black text-white stat-number">{stats.chats}</p>
                   <p className="text-xs text-slate-400">Сессий общения</p>
                 </div>
               </div>
@@ -1070,21 +1085,21 @@ export default function App() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <button 
                   onClick={() => handleChangePlan('trial')}
-                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all ${business.plan === 'trial' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
+                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all btn-press ${business.plan === 'trial' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
                 >
-                  Пробный (Trial) - $0
+                  Пробный (Trial) — 0 ₽
                 </button>
                 <button 
                   onClick={() => handleChangePlan('pro')}
-                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all ${business.plan === 'pro' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
+                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all btn-press ${business.plan === 'pro' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
                 >
-                  Про ($100/мес)
+                  Про (4 990 ₽/мес)
                 </button>
                 <button 
                   onClick={() => handleChangePlan('enterprise')}
-                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all ${business.plan === 'enterprise' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
+                  className={`py-2 px-4 rounded-xl text-xs font-bold border transition-all btn-press ${business.plan === 'enterprise' ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'}`}
                 >
-                  Бизнес ($500/мес)
+                  Бизнес (24 990 ₽/мес)
                 </button>
               </div>
             </div>
@@ -1204,8 +1219,9 @@ export default function App() {
 
                 {/* FAQ Edit/Add Form */}
                 <form onSubmit={handleAddOrUpdateFaq} className="bg-slate-950 p-4 border border-slate-900 rounded-xl space-y-3.5 text-xs">
-                  <div className="font-semibold text-slate-300">
-                    {editingFaqId ? '🖊️ Редактирование вопроса-ответа' : '➕ Добавить новый вопрос-ответ'}
+                  <div className="font-semibold text-slate-300 flex items-center gap-1.5">
+                    {editingFaqId ? <Edit2 className="w-4 h-4 text-indigo-400" /> : <Plus className="w-4 h-4 text-indigo-400" />}
+                    <span>{editingFaqId ? 'Редактирование вопроса-ответа' : 'Добавить новый вопрос-ответ'}</span>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
